@@ -52,6 +52,7 @@ class Intro extends Phaser.Scene {
     preload(){
         this.load.path="./assets/";
         this.load.image("bullet", "bullet.png");
+        this.load.image("cursor", "cursor.png");
         this.load.image("guy", "guy.png");
         this.load.image("gradient", "gradient.png");
         this.load.image("texts", "pretext.png");
@@ -62,10 +63,12 @@ class Intro extends Phaser.Scene {
         let bullet = this.add.image(-500, 350, "bullet");
         let gradient = this.add.image(640, 350, "gradient");
         let texts = this.add.sprite(700, 350, "texts");
+        let cursor = this.add.image(900, 650, "cursor");
         texts.alpha = 0;
+        cursor.alpha = 0;
         gradient.alpha=0;
         
-        let sound = this.sound.add("sound", {volume: 0.5, delay: 8000});
+        let sound = this.sound.add("sound", {volume: 0.5});
         sound.play();
 
         this.tweens.add({
@@ -134,6 +137,16 @@ class Intro extends Phaser.Scene {
             ease: "Power2",
             repeat: 0
         })
+
+        this.tweens.add({
+            targets:cursor,
+            alpha: 1,
+            delay: 4000,
+            duration: 2000,
+            ease: "Power2",
+            repeat: 0
+        })
+
         texts.setInteractive({ useHandCursor: true });
         texts.on('pointerdown', () => this.scene.start('Menu'));
     }
@@ -157,7 +170,7 @@ class Menu extends Phaser.Scene{
         let title = this.add.image(250,100, "title");
         title.alpha = 0;
         bg.setScale(0.7);
-        let bgm = this.sound.add("bgm", {volume: 0.3, delay: 8000});
+        let bgm = this.sound.add("bgm", {volume: 0.3});
         bgm.play();
 
         this.tweens.add({
